@@ -2,13 +2,17 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
-def get_info(start_date,end_date):
+def get_info():
     url = 'https://www.tefas.gov.tr/TarihselVeriler.aspx'
     stuff = requests.get(url)
-    data = {'ctl00$MainContent$TextBoxStartDate':start_date,'ctl00$MainContent$TextBoxEndDate':end_date,'_form_action':'Save'}
-    p = requests.post(url,data)
-    soup = BeautifulSoup(p.text,'html.parser')
-    soup.find_all('')
+    # data = {'ctl00$MainContent$TextBoxStartDate':start_date,'ctl00$MainContent$TextBoxEndDate':end_date,'_form_action':'Save'}
+    # p = requests.post(url,data)
+    soup = BeautifulSoup(stuff.text,'html.parser')
+    soup.prettify()
+    listed = soup.find('table','fund-grid')
+    rows = listed.find_all('tr')
+    # for stuff in listed.children:
+    #     print(stuff.string)
 
 
 
@@ -36,4 +40,4 @@ def get_data():
     get_info(start_date,end_date)
     
 
-get_data()
+get_info()
