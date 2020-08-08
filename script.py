@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 chrome_options = Options()
 from bs4 import BeautifulSoup
-executable_path = r'C:\Users\user\Desktop\Fawaz\chromedriver.exe'
+executable_path = r'C:\Users\Fawaz\Desktop\Dowstrademus\chromedriver.exe'
 chrome_options.add_argument("--window-size=1920,1200")
 driver = webdriver.Chrome(executable_path=executable_path)
 
