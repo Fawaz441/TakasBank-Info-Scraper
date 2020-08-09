@@ -18,6 +18,7 @@ def get_rows_text():
     portfolio_rows = portfolio_table.find_elements_by_tag_name('tr')[1:]
     
     print(str(len(genel_rows))+"rows")
+
     for row in genel_rows:
         my_elements = []
         driver.execute_script("arguments[0].click();", genel_btn)
@@ -32,6 +33,34 @@ def get_rows_text():
             my_elements.append(cello.text)
         time.sleep(5)
         collection.append(my_elements)
+    for x in range(30):
+    # try:
+        more_btn = driver.find_element_by_xpath('/html/body/form/div[3]/div[3]/div/div[4]/div[1]/table/tbody/tr/td[4]/input')
+        driver.execute_script("arguments[0].click();", more_btn)
+        time.sleep(2)
+        genel_table = driver.find_element_by_xpath('/html/body/form/div[3]/div[3]/div/div[4]/div[1]/div/table/tbody')
+        genel_rows = genel_table.find_elements_by_tag_name('tr')[1:]
+        time.sleep(2)
+        for row in genel_rows:
+            my_elements = []
+            genel_btn = driver.find_element_by_xpath('/html/body/form/div[3]/div[3]/div/div[4]/ul/li[1]/a')
+            driver.execute_script("arguments[0].click();", genel_btn)
+            cells = row.find_elements_by_tag_name('td')
+            for cell in cells:
+                my_elements.append(cell.text)
+            portfolio_btn = driver.find_element_by_xpath('/html/body/form/div[3]/div[3]/div/div[4]/ul/li[2]/a')
+            driver.execute_script("arguments[0].click();", portfolio_btn)
+            time.sleep(2)
+            portfolio_table = driver.find_element_by_xpath('/html/body/form/div[3]/div[3]/div/div[4]/div[2]/div[1]/table/tbody')
+            portfolio_rows = portfolio_table.find_elements_by_tag_name('tr')[1:]
+            adjacent_row = portfolio_rows[genel_rows.index(row)]
+            adjacent_cells = adjacent_row.find_elements_by_tag_name('td')[3:]
+            for cello in adjacent_cells:
+                my_elements.append(cello.text)
+            time.sleep(5)
+            collection.append(my_elements)
+    # except:
+    #     pass
     return collection
 
 # def sub(genel_rows,genel_btn,portfolio_rows,portfolio_btn):
@@ -74,6 +103,7 @@ def get_info(start_date,end_date):
     headers = []
     time.sleep(2)
     header_text = driver.find_element_by_css_selector('#MainContent_GridViewGenel > tbody > tr.fund-grid-header')
+    time.sleep(4)
     header_cells = header_text.find_elements_by_tag_name('th')
     for header_cell in header_cells:
         headers.append(header_cell.text)
