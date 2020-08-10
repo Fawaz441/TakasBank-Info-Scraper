@@ -103,7 +103,7 @@ def get_info(start_date,end_date):
     headers = []
     time.sleep(2)
     header_text = driver.find_element_by_css_selector('#MainContent_GridViewGenel > tbody > tr.fund-grid-header')
-    time.sleep(4)
+    time.sleep(4    )
     header_cells = header_text.find_elements_by_tag_name('th')
     for header_cell in header_cells:
         headers.append(header_cell.text)
